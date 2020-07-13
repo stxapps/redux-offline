@@ -20,6 +20,7 @@ export const createOfflineMiddleware = (config: Config) => (store: any) => (
   const offline = config.offlineStateLens(state).get;
   const context = { offline };
   const offlineAction = config.queue.peek(offline.outbox, action, context);
+  const dispatchFunction = config.dispatch || store.dispatch;
 
   // create promise to return on enqueue offline action
   if (action.meta && action.meta.offline) {
@@ -35,17 +36,17 @@ export const createOfflineMiddleware = (config: Config) => (store: any) => (
     !offline.retryScheduled &&
     offline.online
   ) {
-    send(offlineAction, store.dispatch, config, offline.retryCount);
+    send(offlineAction, dispatchFunction, config, offline.retryCount);
   }
 
   if (action.type === OFFLINE_SCHEDULE_RETRY) {
     after(action.payload.delay).then(() => {
-      store.dispatch(completeRetry(offlineAction));
+      dispatchFunction(completeRetry(offlineAction));
     });
   }
 
   if (action.type === OFFLINE_SEND && offlineAction && !offline.busy) {
-    send(offlineAction, store.dispatch, config, offline.retryCount);
+    send(offlineAction, dispatchFunction, config, offline.retryCount);
   }
 
   return promise || result;
