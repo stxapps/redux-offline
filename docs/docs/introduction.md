@@ -1,21 +1,31 @@
+---
+sidebar_position: 1
+title: "Introduction"
+---
+
 <p>
-  <img alt="redux-offline" src="docs/static/img/redux-offline.png" width="300"></img>
+  <img alt="redux-offline" src="/img/redux-offline.png" width="300"></img>
 </p>
+
 <p>
   <a title='License' href="https://raw.githubusercontent.com/redux-offline/redux-offline/master/LICENSE" height="18">
     <img src='https://img.shields.io/badge/license-MIT-blue.svg' />
   </a>
+  &nbsp;&nbsp;
   <a href="https://badge.fury.io/js/%40redux-offline%2Fredux-offline">
-    <img src="https://badge.fury.io/js/%40redux-offline%2Fredux-offline.svg" alt="npm version" height="18">
+    <img src="https://badge.fury.io/js/%40redux-offline%2Fredux-offline.svg" alt="npm version" height="18" />
   </a>
+  &nbsp;&nbsp;
   <a href="https://travis-ci.org/redux-offline/redux-offline">
-    <img src="https://travis-ci.org/redux-offline/redux-offline.svg?branch=master" alt="travis" height="18">
+    <img src="https://travis-ci.org/redux-offline/redux-offline.svg?branch=master" alt="travis" height="18" />
   </a>
 </p>
 
-🚨🚨🚨🚨 **v3** is coming soon! Check the progress updates [HERE](https://github.com/redux-offline/redux-offline/issues/392)
+<br />
 
-<br>
+🚨🚨🚨🚨🚨🚨 **v3** is coming soon! Check the progress updates [HERE](https://github.com/redux-offline/redux-offline/issues/392) 🚨🚨🚨🚨🚨🚨
+
+<br />
 
 Persistent Redux store for _Reasonaboutable_:tm: Offline-First applications, with first-class support for optimistic UI. Use with React, React Native, or as standalone state container for any web app.
 
@@ -106,7 +116,7 @@ If writing a native app for Android, you'll need to make sure to request the per
 ```
 * * *
 
-See [Documentation](https://redux-offline.github.io/redux-offline) for configuration options, the full API, and common recipes.
+See [Documentation](basics/getting-started) for configuration options, the full API, and common recipes.
 
 ## Contributing
 
