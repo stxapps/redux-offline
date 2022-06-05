@@ -37,11 +37,13 @@ const complete = (
   }: any): ResultAction);
 };
 
-const handleJsError = (error: Error): ResultAction =>
-  (({
+const handleJsError = (error: Error): ResultAction => {
+  console.log(error);
+  return (({
     type: JS_ERROR,
     meta: { error, success: false, completed: true }
   }: any): ResultAction);
+};
 
 const send = (
   action: OfflineAction,
