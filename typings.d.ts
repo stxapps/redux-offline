@@ -87,7 +87,7 @@ declare module '@redux-offline/redux-offline/lib/types' {
     persistOptions: { [key: string]: any };
     retry: (action: OfflineAction, retries: number) => number | void;
     dispatch?: any => void,
-    filterOutboxRehydrate?: Outbox => Outbox,
+    filterOutboxRehydrate?: (outbox: Outbox) => Outbox,
     queue: {
       enqueue: (
         array: Array<OfflineAction>,
