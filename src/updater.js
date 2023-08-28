@@ -34,8 +34,13 @@ export const initialState: OfflineState = {
 
 type Dequeue = $PropertyType<$PropertyType<Config, 'queue'>, 'dequeue'>;
 type Enqueue = $PropertyType<$PropertyType<Config, 'queue'>, 'enqueue'>;
+type FilterOutboxRehydrate = $PropertyType<Config, 'filterOutboxRehydrate'>;
 
-export const buildOfflineUpdater = (dequeue: Dequeue, enqueue: Enqueue) =>
+export const buildOfflineUpdater = (
+  dequeue: Dequeue,
+  enqueue: Enqueue,
+  filterOutboxRehydrate: FilterOutboxRehydrate
+) =>
   function offlineUpdater(
     state: OfflineState = initialState,
     action:
@@ -54,7 +59,7 @@ export const buildOfflineUpdater = (dequeue: Dequeue, enqueue: Enqueue) =>
     }
 
     if (action.type === PERSIST_REHYDRATE && action.payload) {
-      return {
+      const newState = {
         ...state,
         ...(action.payload.offline || {}),
         online: state.online,
@@ -63,6 +68,11 @@ export const buildOfflineUpdater = (dequeue: Dequeue, enqueue: Enqueue) =>
         retryCount: initialState.retryCount,
         busy: initialState.busy
       };
+      if (filterOutboxRehydrate) {
+        newState.outbox = filterOutboxRehydrate(newState.outbox);
+      }
+
+      return newState;
     }
 
     if (action.type === OFFLINE_SCHEDULE_RETRY) {
@@ -123,8 +133,13 @@ export const buildOfflineUpdater = (dequeue: Dequeue, enqueue: Enqueue) =>
   };
 
 export const enhanceReducer = (reducer: any, config: $Shape<Config>) => {
-  const { dequeue, enqueue } = config.queue;
-  const offlineUpdater = buildOfflineUpdater(dequeue, enqueue);
+  const { queue, filterOutboxRehydrate } = config;
+  const { dequeue, enqueue } = queue;
+  const offlineUpdater = buildOfflineUpdater(
+    dequeue,
+    enqueue,
+    filterOutboxRehydrate
+  );
 
   return (state: any, action: any): any => {
     let offlineState;

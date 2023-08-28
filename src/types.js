@@ -101,6 +101,7 @@ export type Config = {
   offlineStateLens: (
     state: any
   ) => { get: OfflineState, set: (offlineState: ?OfflineState) => any },
+  filterOutboxRehydrate?: Outbox => Outbox,
   queue: {
     enqueue: (
       array: Array<OfflineAction>,
